@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Web Challenges</title>
+    <style>
+      h2,a {
+        font-family: "Helvetica Neue"
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Web Challenges</h2>
+    <ul id="levelList">
+    </ul>
+    <script>
+      var numLevels = 5;
+      var html = ''
+      for (var i=1;i<=numLevels; i=i+1) {
+        html = html + '<li><a href="/level' + i + '">Level ' + i + '</a></li>'
+      }
+      document.getElementById("levelList").innerHTML = html
+    </script>
+  </body>
+</html>

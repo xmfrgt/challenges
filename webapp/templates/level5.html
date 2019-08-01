@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Level 5 - Web Challenge</title>
+  </head>
+  <body>
+    <script>
+    localStorage.setItem('isLoggedIn', false);
+    
+    function checkLoggedIn() {
+      var loginStatus = localStorage.getItem('isLoggedIn');
+      if(loginStatus === "true" || loginStatus === true) {
+        document.getElementById('loginStatus').innerHTML = 'logged in: true'
+      }else{
+        document.getElementById('loginStatus').innerHTML = 'logged in: false'
+      }
+    }
+    </script>
+    <div id="body">
+      <a href="/"><button>Home</button></a>
+      <h3>Misc Challenge 1</h3>
+      <hr>
+      <p id="loginStatus">logged in: false</p>
+      <input onClick="checkLoggedIn()" type="button" value="Check if logged in">
+    </div>
+  </body>
+</html>
