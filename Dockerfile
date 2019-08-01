@@ -2,8 +2,6 @@ FROM rastasheep/ubuntu-sshd
 
 RUN apt-get update -y && \
     apt-get install -y python3-pip python3
-  
-RUN echo "root:mar" | chpasswd
 
 COPY ./webapp/requirements.txt /app/requirements.txt
 
