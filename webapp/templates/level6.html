@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Level 5 - Web Challenge</title>
+  </head>
+  <body>
+    <script>
+    document.cookie = "loggedIn=false";
+    
+    function checkLoggedIn() {
+      var cookie = document.cookie;
+
+      console.log('got cookie', loginStatus)
+      if (cookie) {
+        var loginStatus = cookie.split('=')[1];
+        console.log('got loginStatus', loginStatus)
+        if (loginStatus === 'true' || loginStatus === true) {
+          document.getElementById("loginStatus").innerHTML = "logged in: true";
+        } else {
+          document.getElementById("loginStatus").innerHTML = "logged in: false";
+        }
+      } else {
+        document.getElementById("loginStatus").innerHTML = "logged in: false";
+      }
+    }
+    </script>
+    <div id="body">
+      <span>
+        <a href="/" style="position: absolute;">
+          <button>Home</button>
+        </a>
+        <h3 style="margin-left: 75px;">Misc Challenge 2</h3>
+      </span>
+      <hr>
+      <p id="loginStatus">logged in: false</p>
+      <input onClick="checkLoggedIn()" type="button" value="Check if logged in">
+    </div>
+  </body>
+</html>
