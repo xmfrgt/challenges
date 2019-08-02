@@ -11,7 +11,6 @@
       function login() {
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
-        // jee - futon
         var correct_creds = ['3591daf03f80ee638643d8e173087e83', '2702bf8b6c00c1dff269f49a8df32047']
         if (md5(username) === correct_creds[0] && md5(password) === correct_creds[1]){
           document.getElementById("login-status").innerHTML = 'Login Success!'
