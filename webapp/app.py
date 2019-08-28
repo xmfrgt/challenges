@@ -7,29 +7,9 @@ app = Flask(__name__)
 def home():
   return render_template('home.html')
 
-@app.route('/level1')
-def level1():
-    return render_template('level1.html')
-
-@app.route('/level2')
-def level2():
-  return render_template('level2.html')
-
-@app.route('/level3')
-def level3():
-  return render_template('level3.html')
-
-@app.route('/level4')
-def level4():
-  return render_template('level4.html')
-
-@app.route('/level5')
-def level5():
-  return render_template('level5.html')
-
-@app.route('/level6')
-def level6():
-  return render_template('level6.html')
+@app.route('/<level>')
+def level1(level):
+    return render_template('%s.html'%level)
 
 
 @app.route('/login1', methods = ['GET'])
