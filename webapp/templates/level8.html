@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>Level 8 - Web Challenge</title>
+  </head>
+  <body>
+    <script>
+      const secret = Math.floor((Math.random() * 98989898989898) + 1);
+
+      function initalizeDatabase(){
+         //prefixes of implementation that we want to test
+         window.indexedDB = window.indexedDB || window.mozIndexedDB || 
+         window.webkitIndexedDB || window.msIndexedDB;
+         
+         //prefixes of window.IDB objects
+         window.IDBTransaction = window.IDBTransaction || 
+         window.webkitIDBTransaction || window.msIDBTransaction;
+         window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || 
+         window.msIDBKeyRange
+         
+         if (!window.indexedDB) {
+            window.alert("Your browser doesn't support a stable version of IndexedDB.")
+         }
+         
+         const authData = [
+            { id: "1", secret},
+         ];
+         var db;
+         indexedDB.deleteDatabase("level8");
+         var request = window.indexedDB.open("level8", 1);
+         request.onerror = function(event) {
+            console.log("error: ");
+         };
+         
+         request.onsuccess = function(event) {
+            db = request.result;
+            console.log("success: "+ db);
+         };
+         
+         request.onupgradeneeded = function(event) {
+            var db = event.target.result;
+            var objectStore = db.createObjectStore("secret", {keyPath: "id"});
+            
+            for (var i in authData) {
+               objectStore.add(authData[i]);
+            }
+         }
+      }
+
+      function checkSecret() {
+        inputSecret = document.getElementById('secret').value
+        console.log('comparing', inputSecret, secret)
+        if(inputSecret.toString() ===  secret.toString()) {
+          document.getElementById('secret-status').innerHTML = 'secret status: correct!'
+        }else{
+          document.getElementById('secret-status').innerHTML = 'secret status: incorrect!'
+        }
+      }
+         
+      initalizeDatabase();
+    </script>
+    <div id="body">
+        <a href="/" style="position: absolute;">
+          <button>Home</button>
+        </a>
+        <h3 style="margin-left: 70px;">Level 8 - Browser Challenge 4</h3>
+      <hr>
+      Secret<br>
+      <input type="text" name="secret" id="secret">
+
+      <input onClick="checkSecret()" type="submit" value="Check Secret">
+      <p id="secret-status"></p>
+    </div>
+  </body>
+</html>

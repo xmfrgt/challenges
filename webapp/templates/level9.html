@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <title>Level 9 - Web Challenge</title>
+  </head>
+  <body>
+    <script>
+      function initalizeDatabase(){
+         //prefixes of implementation that we want to test
+         window.indexedDB = window.indexedDB || window.mozIndexedDB || 
+         window.webkitIndexedDB || window.msIndexedDB;
+         
+         //prefixes of window.IDB objects
+         window.IDBTransaction = window.IDBTransaction || 
+         window.webkitIDBTransaction || window.msIDBTransaction;
+         window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || 
+         window.msIDBKeyRange
+         
+         if (!window.indexedDB) {
+            window.alert("Your browser doesn't support a stable version of IndexedDB.")
+         }
+         
+         const authData = [
+            { id: "1", isLoggedIn: false },
+         ];
+         var db;
+         indexedDB.deleteDatabase("level9");
+         var request = window.indexedDB.open("level9", 1);
+         
+         request.onerror = function(event) {
+            console.log("error: ");
+         };
+         
+         request.onsuccess = function(event) {
+            db = request.result;
+            console.log("success: "+ db);
+         };
+         
+         request.onupgradeneeded = function(event) {
+            var db = event.target.result;
+            var objectStore = db.createObjectStore("authentication", {keyPath: "id"});
+            
+            for (var i in authData) {
+               objectStore.add(authData[i]);
+            }
+         }
+      }   
+
+      function checkLoggedIn() {
+            var transaction = db.transaction(["level9"]);
+            var objectStore = transaction.objectStore("authentication");
+            var request = objectStore.get("1");
+            
+            request.onerror = function(event) {
+               alert("Unable to retrieve authData from database!");
+            };
+            
+            request.onsuccess = function(event) {
+               if(request.result) {
+                 if (request.result.isLoggedIn === true || request.result.isLoggedIn === "true") {
+                  document.getElementById('loginStatus').innerHTML = 'logged in: true'
+
+                 } else {
+                  document.getElementById('loginStatus').innerHTML = 'logged in: false'
+                 }
+               } else {
+                document.getElementById('loginStatus').innerHTML = 'logged in: false'
+               }
+            };
+         }
+         
+      initalizeDatabase();
+    </script>
+    <div id="body">
+        <a href="/" style="position: absolute;">
+          <button>Home</button>
+        </a>
+        <h3 style="margin-left: 70px;">Level 9 - Browser Challenge 5</h3>
+      <hr>
+      <p id="loginStatus">logged in: false</p>
+      <input onClick="checkLoggedIn()" type="button" value="Check if logged in">
+    </div>
+  </body>
+</html>
