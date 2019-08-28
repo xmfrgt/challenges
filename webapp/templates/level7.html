@@ -1,13 +1,14 @@
 <html>
   <head>
-    <title>Level 5 - Web Challenge</title>
+    <title>Level 7 - Web Challenge</title>
   </head>
   <body>
     <script>
-    localStorage.setItem('isLoggedIn', false);
+    sessionStorage.setItem("isLoggedIn", false);
     
     function checkLoggedIn() {
-      var loginStatus = localStorage.getItem('isLoggedIn');
+
+      var loginStatus = sessionStorage.getItem("isLoggedIn");
       if(loginStatus === "true" || loginStatus === true) {
         document.getElementById('loginStatus').innerHTML = 'logged in: true'
       }else{
@@ -19,7 +20,7 @@
         <a href="/" style="position: absolute;">
           <button>Home</button>
         </a>
-        <h3 style="margin-left: 70px;">Level 5 - Browser Challenge 1</h3>
+        <h3 style="margin-left: 70px;">Level 7 - Browser Challenge 3</h3>
       <hr>
       <p id="loginStatus">logged in: false</p>
       <input onClick="checkLoggedIn()" type="button" value="Check if logged in">
