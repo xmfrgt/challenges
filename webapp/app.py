@@ -8,9 +8,8 @@ def home():
   return render_template('home.html')
 
 @app.route('/<level>')
-def level1(level):
+def level(level):
     return render_template('%s.html'%level)
-
 
 @app.route('/login1', methods = ['GET'])
 def login1():
