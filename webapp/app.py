@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from database import initalize_database, execute_query, get_database_handle
 import hashlib 
 
 app = Flask(__name__)
@@ -57,5 +58,20 @@ def login3():
   else:
     return "Login Failure"
 
+@app.route('/sqlquery', methods = ['POST'])
+def sql_query():
+  try:
+    print(request.form)
+    query = request.form.get('query')
+    conn = get_database_handle(r'users.db')
+    res = execute_query(conn, query)
+    if len(res) > 0:
+      return "success"
+    else:
+      return "failure"
+  except Exception as e:
+    print('got exception', e)
+
 if __name__ == '__main__':
+    # Initalize sqlite database
     app.run(debug=True, host='0.0.0.0')
