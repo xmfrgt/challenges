@@ -9,10 +9,8 @@
     function checkLoggedIn() {
       var cookie = document.cookie;
 
-      console.log('got cookie', loginStatus)
       if (cookie) {
         var loginStatus = cookie.split('=')[1];
-        console.log('got loginStatus', loginStatus)
         if (loginStatus === 'true' || loginStatus === true) {
           document.getElementById("loginStatus").innerHTML = "logged in: true";
         } else {
