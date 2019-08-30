@@ -58,10 +58,9 @@ def login3():
   else:
     return "Login Failure"
 
-@app.route('/sqlquery', methods = ['POST'])
-def sql_query():
+@app.route('/login10', methods = ['POST'])
+def login10():
   try:
-    print(request.form)
     query = request.form.get('query')
     conn = get_database_handle(r'users.db')
     res = execute_query(conn, query)
@@ -71,6 +70,25 @@ def sql_query():
       return "failure"
   except Exception as e:
     print('got exception', e)
+    return "failure"
+
+@app.route('/login11', methods = ['POST'])
+def login11():
+  try:
+    query = request.form.get('query')
+    conn = get_database_handle(r'users.db')
+    res = execute_query(conn, query)
+    print(len(res))
+    if len(res) == 1:
+      return res[0][1]
+    elif len(res) > 1:
+      return "SQL Injection attempt detected!"
+    else:
+      return "failure"
+  except Exception as e:
+    print('got except', e)
+    return "failure"
+
 
 if __name__ == '__main__':
     # Initalize sqlite database

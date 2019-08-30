@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Level 11 - SQL Injection</title>
+  </head>
+  <body>
+    <script>
+      function query() {
+        var xhttp = new XMLHttpRequest();
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        xhttp.onreadystatechange = function() {
+          if (this.responseText === 'failure'){
+            document.getElementById("login-status").innerHTML = "Login Failure!";
+          } else if (this.responseText === 'SQL Injection attempt detected!'){
+            document.getElementById("login-status").innerHTML = "SQL Injection attempt detected!";
+          }else {
+            document.getElementById("login-status").innerHTML = "Welcome User: " + this.responseText;
+          }
+        };
+        xhttp.onerror = function() {
+            document.getElementById("login-status").innerHTML = "Login Failed!";
+        }
+
+        xhttp.open("POST", "/login11", true);
+        var username = document.getElementById('username').value
+        var password = document.getElementById('password').value
+        var query = 'SELECT * FROM users WHERE username = "' + username + '" AND password = "' + password + '";';
+        document.getElementById('sql-query').innerHTML = "SQL Query: " + query
+        var data = new FormData();
+        data.append('query', query)
+        xhttp.send(data);
+
+      }
+    </script>
+    <div id="body">
+        <a href="/" style="position: absolute;">
+          <button>Home</button>
+        </a>
+        <h3 style="margin-left: 70px;">Level 11 - SQL Injection Challenge 2</h3>
+      <hr>
+      Challenge: Login as the root user.
+      <br>
+      <br>
+      Username<br>
+      <input type="text" name="username" id="username">
+      <br>
+      Password<br>
+      <input type="text" name="password" id="password">
+      <br><br>
+      <input onClick="query()" type="submit" value="Submit">
+      <p id="sql-query"></p>
+      <p id="login-status"></p>
+    </div>
+  </body>
+</html>
