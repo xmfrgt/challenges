@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Level 10 - SQL Injection</title>
+  </head>
+  <body>
+    <script>
+      function query() {
+        var xhttp = new XMLHttpRequest();
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        xhttp.onreadystatechange = function() {
+          if (this.responseText === 'failure'){
+            document.getElementById("login-status").innerHTML = "Login Failed!";
+          } else if (this.responseText === 'success') {
+            document.getElementById("login-status").innerHTML = "Login Success!";
+          }
+        };
+
+        xhttp.open("POST", "/sqlquery", true);
+        var username = document.getElementById('username').value
+        var password = document.getElementById('password').value
+        var query = 'SELECT * FROM users WHERE username = "' + username + '" AND password = "' + password + '";';
+        document.getElementById('sql-query').innerHTML = "SQL Query: " + query
+        var data = new FormData();
+        data.append('query', query)
+        xhttp.send(data);
+
+      }
+    </script>
+    <div id="body">
+        <a href="/" style="position: absolute;">
+          <button>Home</button>
+        </a>
+        <h3 style="margin-left: 70px;">Level 10 - SQL Injection Challenge 1</h3>
+      <hr>
+      Username<br>
+      <input readonly type="text" name="username" id="username" value="trout">
+      <br>
+      Password<br>
+      <input type="text" name="password" id="password">
+      <br><br>
+      <input onClick="query()" type="submit" value="Submit">
+      <p id="sql-query"></p>
+      <p id="login-status"></p>
+    </div>
+  </body>
+</html>
