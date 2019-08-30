@@ -48,7 +48,6 @@
 
       function checkSecret() {
         inputSecret = document.getElementById('secret').value
-        console.log('comparing', inputSecret, secret)
         if(inputSecret.toString() ===  secret.toString()) {
           document.getElementById('secret-status').innerHTML = 'secret status: correct!'
         }else{
