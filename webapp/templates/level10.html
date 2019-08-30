@@ -15,8 +15,12 @@
             document.getElementById("login-status").innerHTML = "Login Success!";
           }
         };
+        xhttp.onerror = function() {
+            console.log('got error')
+            document.getElementById("login-status").innerHTML = "Login Failed!";
+        }
 
-        xhttp.open("POST", "/sqlquery", true);
+        xhttp.open("POST", "/login10", true);
         var username = document.getElementById('username').value
         var password = document.getElementById('password').value
         var query = 'SELECT * FROM users WHERE username = "' + username + '" AND password = "' + password + '";';
