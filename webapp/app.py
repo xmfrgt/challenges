@@ -78,7 +78,6 @@ def login11():
     query = request.form.get('query')
     conn = get_database_handle(r'users.db')
     res = execute_query(conn, query)
-    print(len(res))
     if len(res) == 1:
       return res[0][1]
     elif len(res) > 1:
