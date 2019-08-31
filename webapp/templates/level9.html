@@ -37,7 +37,7 @@
          
          request.onupgradeneeded = function(event) {
             var db = event.target.result;
-            var objectStore = db.createObjectStore("authentication", {keyPath: "id"});
+            var objectStore = db.createObjectStore("door", {keyPath: "id"});
             
             for (var i in authData) {
                objectStore.add(authData[i]);
@@ -47,7 +47,7 @@
 
       function checkLoggedIn() {
             var transaction = db.transaction(["level9"]);
-            var objectStore = transaction.objectStore("authentication");
+            var objectStore = transaction.objectStore("door");
             var request = objectStore.get("1");
             
             request.onerror = function(event) {
