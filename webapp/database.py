@@ -94,7 +94,10 @@ def initalize_database():
     conn = create_connection(database)
 
     # remove existing users
-    remove_all_users(conn)
+    try:
+        remove_all_users(conn)
+    except:
+        pass
 
     # create users table if it doesn't exist
     create_users_table(conn)
