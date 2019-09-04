@@ -91,4 +91,5 @@ def login11():
 
 if __name__ == '__main__':
     # Initalize sqlite database
+    initalize_database()
     app.run(debug=True, host='0.0.0.0')
