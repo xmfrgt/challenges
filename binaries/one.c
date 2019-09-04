@@ -1,7 +1,6 @@
-#include <stdio.h>
 
 int main()
 {
-    puts("secret: baz");
+    int foo = 10;
     return 0;
 }
