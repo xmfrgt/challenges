@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Level 15 - Web Bruteforce</title>
+  </head>
+  <body>
+      <a href="/" style="position: absolute;">
+        <button>Home</button>
+      </a>
+      <h3 style="margin-left: 70px;">Level 15 - Bruteforce Challenge 5</h3>
+    <hr>
+    <p>the site's been erected, now its time to protect it, keep safe the hidden secret.</p>
+    <form action="/login15" method="post">
+      Username<br>
+      <input type="text" name="username" value="Username">
+      <br>
+      Password<br>
+      <input type="password" name="password" value="Password">
+      <br><br>
+      <input type="submit" value="Submit">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+    </form>
+  </body>
+</html>

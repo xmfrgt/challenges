@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, session, send_from_directory
 import os
 from database import initalize_database, execute_query, get_database_handle
-import hashlib 
+import hashlib
+import uuid
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
@@ -17,8 +18,9 @@ def favicon():
 
 @app.route('/<level>')
 def level(level):
-    session['_csrf_token'] = 'test token'
-    return render_template('%s.html'%level)
+    token = str(uuid.uuid4().hex)
+    session['_csrf_token'] = token
+    return render_template('%s.html'%level, csrf_token=token)
 
 @app.route('/login1', methods = ['GET'])
 def login1():
@@ -96,6 +98,24 @@ def login11():
     print('got except', e)
     return "failure"
 
+@app.route('/login15', methods = ['POST'])
+def login15():
+  username = request.form.get('username')
+  password = request.form.get('password')
+  token    = request.form.get('_csrf_token')
+
+  correct_creds = ['4622630dde8761c0808ec25bbe2a7a67', '68995fcbf432492d15484d04a9d2ac40']
+  username_hash = hashlib.md5(username.encode()).hexdigest()
+  pw_hash = hashlib.md5(password.encode()).hexdigest()
+  correct_creds = username_hash == correct_creds[0] and pw_hash == correct_creds[1]
+  if ( correct_creds and token and token == session['_csrf_token']):
+    return 'Login Success!'
+  elif (correct_creds and ( token != session['_csrf_token'] or not token) ):
+    return 'Missing or Invalid CSRF Token'
+  elif not correct_creds:
+    return 'Login Failure'
+  else:
+    return 'Login Failure'
 
 if __name__ == '__main__':
     # Initalize sqlite database
