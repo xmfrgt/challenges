@@ -1,15 +1,23 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, send_from_directory
+import os
 from database import initalize_database, execute_query, get_database_handle
 import hashlib 
 
 app = Flask(__name__)
+app.config.from_pyfile('config.cfg')
+
 
 @app.route('/')
 def home():
   return render_template('home.html')
 
+@app.route('/favicon.ico') 
+def favicon(): 
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 @app.route('/<level>')
 def level(level):
+    session['_csrf_token'] = 'test token'
     return render_template('%s.html'%level)
 
 @app.route('/login1', methods = ['GET'])
