@@ -18,7 +18,7 @@
          window.msIDBKeyRange
          
          if (!window.indexedDB) {
-            window.alert("Your browser doesn't support a stable version of IndexedDB.")
+            window.alert("Your browser doesn't support this challenge. Please update or switch to a different browser")
          }
          
          const authData = [
@@ -33,7 +33,6 @@
          
          request.onsuccess = function(event) {
             db = request.result;
-            console.log("success: "+ db);
          };
          
          request.onupgradeneeded = function(event) {
