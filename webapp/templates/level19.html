@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <title>Level 19 -  Browser Challenge 7</title>
+  </head>
+  <body onload="initalize()">
+    <script>
+        constants = {
+            numButtons: 1000,
+            numColoredButtons: 500,
+        }
+        state = {
+            timerStarted: false,
+            challengeStatus: false,
+            numButtonsClicked: 0,
+            buttonIdsClicked: [],   // TODO: Eventually add ids to buttons and check for a button being clicked twice.
+        }
+
+        function initalize() {
+            var coloredButtons = generateSelectedButtons()
+            for (i=0;i<constants.numButtons;i=i+1){
+                var button = document.createElement("Button");
+                button.id = i
+                if (coloredButtons.indexOf(i) > -1) {
+                  button.style.backgroundColor = `#${Math.random().toString(16).substr(-6)}`;
+                  button.style.height = '15px'
+                }
+                button.onclick = buttonClicked
+                document.getElementById("buttons").appendChild(button);
+            }
+        }
+
+        function stopTimer() {
+            state.timerStarted = false;
+            document.getElementById("timerStatus").innerHTML = "Timer Status: Off"
+            state.numButtonsClicked = 0
+        }
+
+        function generateUniqueRandomNumber(max, existingNumbers) {
+          var index = Math.floor((Math.random() * max) + 1);
+          while (existingNumbers.indexOf(index) != -1) {
+            index = Math.floor((Math.random() * max) + 1);
+          }
+          return index
+        }
+
+        function generateSelectedButtons() {
+            // Grab numColoredButtons numbers between 0 and numButtons
+            var coloredButtonIndexes = []
+            for (i=0;i<constants.numColoredButtons;i=i+1){
+              coloredButtonIndexes.push(generateUniqueRandomNumber(constants.numButtons, coloredButtonIndexes))
+            }
+            return coloredButtonIndexes
+        }
+
+        function buttonClicked(e) {
+          var bgColor = e.target.style.backgroundColor;
+          if (bgColor === ""){
+            stopTimer()
+            document.getElementById("challengeStatus").innerHTML = "Challenge Status: Failed!";
+          }
+          else if (state.timerStarted === false) {
+              state.timerStarted = true;
+              setTimeout(stopTimer, 1000)
+              document.getElementById("timerStatus").innerHTML = "Timer Status: On";
+              document.getElementById("challengeStatus").innerHTML = "Challenge Status: Not Complete";
+              state.numButtonsClicked += 1;
+          } else {
+              state.numButtonsClicked += 1;
+              if (state.numButtonsClicked === constants.numColoredButtons) {
+                  state.challengeStatus = true;
+                  document.getElementById("challengeStatus").innerHTML = "Challenge Status: Complete!"
+              }
+          }
+        }
+
+    </script>
+    <div id="body">
+        <a href="/" style="position: absolute;">
+          <button>Home</button>
+        </a>
+        <h3 style="margin-left: 70px;">Level 19 - Javascript Challenge 2</h3>
+      <hr>
+      <p>Your challenge is to click every colored button on the page within 1 second. Timer starts when you click the first button. Clicking a non-colored button will instantly fail the challenge.</p>
+      <p id="timerStatus">Timer Status: Off</p>
+      <p id="challengeStatus">Challenge Status: Not Complete</p>
+      <div id="buttons"></div>
+    </div>
+  </body>
+</html>
