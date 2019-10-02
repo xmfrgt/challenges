@@ -16,11 +16,19 @@ def home():
 def favicon(): 
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/<category>/<level>')
+def level(category, level):
+    token = str(uuid.uuid4().hex)
+    session['_csrf_token'] = token
+    return render_template('%s/%s.html'%(category,level), csrf_token=token)
+
+'''
 @app.route('/<level>')
 def level(level):
     token = str(uuid.uuid4().hex)
     session['_csrf_token'] = token
     return render_template('%s.html'%level, csrf_token=token)
+'''
 
 @app.route('/login1', methods = ['GET'])
 def login1():

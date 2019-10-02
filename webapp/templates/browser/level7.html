@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Level 19 -  Browser Challenge 7</title>
+    <title>Browser Challenge 7</title>
   </head>
   <body onload="initalize()">
     <script>
@@ -67,6 +67,7 @@
           } else {
               state.numButtonsClicked += 1;
               if (state.numButtonsClicked === constants.numColoredButtons) {
+                  // console.log(`${state.numButtonsClicked}/${constants.numColoredButtons}`)
                   state.challengeStatus = true;
                   document.getElementById("challengeStatus").innerHTML = "Challenge Status: Complete!"
               }
@@ -78,7 +79,7 @@
         <a href="/" style="position: absolute;">
           <button>Home</button>
         </a>
-        <h3 style="margin-left: 70px;">Level 19 - Javascript Challenge 2</h3>
+        <h3 style="margin-left: 70px;">Browser Challenge 7</h3>
       <hr>
       <p>Your challenge is to click every colored button on the page within 1 second. Timer starts when you click the first button. Clicking a non-colored button will instantly fail the challenge.</p>
       <p id="timerStatus">Timer Status: Off</p>
