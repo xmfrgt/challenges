@@ -19,10 +19,10 @@
             var coloredButtons = generateSelectedButtons()
             for (i=0;i<constants.numButtons;i=i+1){
                 var button = document.createElement("Button");
+                button.style.height = '15px'
                 button.id = i
                 if (coloredButtons.indexOf(i) > -1) {
                   button.style.backgroundColor = `#${Math.random().toString(16).substr(-6)}`;
-                  button.style.height = '15px'
                 }
                 button.onclick = buttonClicked
                 document.getElementById("buttons").appendChild(button);
