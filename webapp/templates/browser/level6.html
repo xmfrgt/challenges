@@ -18,6 +18,7 @@
             for (i=0;i<constants.numButtons;i=i+1){
                 var button = document.createElement("Button");
                 button.onclick = buttonClicked
+                button.style.height = '15px'
                 document.getElementById("buttons").appendChild(button);
             }
         }
